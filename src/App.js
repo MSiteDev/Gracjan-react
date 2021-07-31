@@ -1,25 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import Task from "./Components/Task";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    state = {
+        list: [],
+        currentInputValue: "",
+        counter: 0
+    }
+
+    onInputChange = e => {
+        this.setState({currentInputValue: e.target.value});
+    }
+
+    addTask = () => {
+        this.setState({
+            list: this.state.list.concat({
+                text: this.state.currentInputValue,
+                id: this.state.counter
+            }),
+            currentInputValue: "",
+            counter: this.state.counter + 1
+        })
+    }
+
+    render() {
+
+        return (
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {this.state.list.map((task) => <Task key={task.id} id={task.id} text={task.text}/>)}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colSpan={2}>
+                        <input type="text" value={this.state.currentInputValue}
+                               onChange={this.onInputChange}/>
+                        <button onClick={this.addTask}>Add new task</button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        );
+    }
 }
+
 
 export default App;
