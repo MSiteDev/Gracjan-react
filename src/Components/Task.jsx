@@ -6,11 +6,19 @@ const TaskRow = styled.tr`
   min-width: 20px;
 `;
 
+const IdCol = styled.td`
+  font-weight: bold;
+`;
+
+const TextCol = styled(IdCol)`
+  color: blue;
+`;
+
 const Task = (props) => {
     return (
         <TaskRow>
-            <td>{props.id}</td>
-            <td>{props.text}</td>
+            <IdCol>{props.id}</IdCol>
+            <TextCol>{props.text}</TextCol>
         </TaskRow>
     );
 }
